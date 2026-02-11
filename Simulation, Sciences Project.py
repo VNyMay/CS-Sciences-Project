@@ -21,7 +21,7 @@ CommodityRates = {
     "Sugar": 0.07, # Raw Sugar
     "Pulses": 0.11 # Beans, Lentils
     }
-BaselineTemp = 20
+BaselineTemp = 25
 BaselineHumidity = 50
 TempCoeff = 1.12
 
@@ -71,10 +71,10 @@ with St.sidebar:
     St.header("Parameters")
     Commodity = St.selectbox("Commodity", list(CommodityRates.keys()))
     St.divider()
-    Days = St.slider("Days", 30, 1461, 90)
+    Days = St.slider("Days (Scale of Graph)", 30, 1461, 90)
     TempC = St.slider("Temperature (°C)", 0, 50, 25)
     Humidity = St.slider("Humidity (%)", 0, 100, 50)
-    Threshold = St.slider("Threshold (%)", 0, 100, 20)
+    Threshold = St.slider("Threshold (%)", 0, 100, 35)
     St.divider()
     CompareOn = St.checkbox(f"Compare to baseline ({BaselineTemp}°C, {BaselineHumidity}% RH)")
 
@@ -90,11 +90,10 @@ if CompareOn:
 
 # UI Metrics
 
-Col1, Col2, Col3, Col4 = St.columns(4)
+Col1, Col2, Col3 = St.columns(3)
 Col1.metric("Consumable (days)", f"{ConsumableDay:.0f}")
-Col2.metric("Decay rate (k)", f"{K:.4f}")
-Col3.metric("Half-life (days)", f"{Day50:.0f}")
-Col4.metric("Quality AUC", f"{Auc:.0f}")
+Col3.metric("Decay rate (k)", f"{K:.4f}")
+Col2.metric("Half-life (days)", f"{Day50:.0f}")
 
 # Graph Chart
 
